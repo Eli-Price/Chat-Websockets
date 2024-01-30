@@ -27,8 +27,11 @@
 
     <script>
         const socket = io({
-            reconnectionDelay: 10000, //defaults to 1000
-            reconnectionDelayMax: 10000 //defaults to 5000
+          auth: {
+            serverOffset: 0,
+          },
+          reconnectionDelay: 10000, //defaults to 1000
+          reconnectionDelayMax: 10000 //defaults to 5000
         });
 
         const form = document.getElementById('form');
@@ -43,13 +46,16 @@
             }
         });
 
-        socket.on('chat message', (msg) => {
+        socket.on('chat message', (msg, serverOffset) => {
             const item = document.createElement('li');
             item.textContent = msg;
             messages.appendChild(item);
             window.scrollTo(0, document.body.scrollHeight);
+            socket.auth.serverOffset = serverOffset;
         });
     </script>
+
+    <!-- Disconnect Button -->
     <script>
         const toggleButton = document.getElementById('toggle-btn');
 
