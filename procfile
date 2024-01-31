@@ -1,1 +1,2 @@
+web: index.js
 database: sqlite3 database.db
